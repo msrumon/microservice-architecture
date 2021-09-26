@@ -1,0 +1,35 @@
+name: CD of service-2
+
+on:
+  push:
+    paths:
+      - .github/**
+      - service-2/**
+
+jobs:
+  build-push:
+    name: Build the image and push it to the container registry
+    runs-on: ubuntu-latest
+    # permissions:
+    #   contents: read
+    #   packages: write
+    steps:
+      - name: Checkout to branch
+        uses: actions/checkout@v2
+      - name: Login to the container registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Extract metadata of the image
+        uses: docker/metadata-action@v3
+        with:
+          images: ghcr.io/service-2
+      - name: Build and push the image to the container registry
+        uses: docker/build-push-action@v2
+        with:
+          context: service-2
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
