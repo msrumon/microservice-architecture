@@ -8,8 +8,8 @@ spec:
   type: LoadBalancer
   ports:
     - protocol: TCP
-      port: 5555
-      targetPort: 5555
+      port: 3002
+      targetPort: 3002
 ---
 apiVersion: apps/v1
 kind: Deployment

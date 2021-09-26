@@ -8,8 +8,8 @@ spec:
   type: LoadBalancer
   ports:
     - protocol: TCP
-      port: 6666
-      targetPort: 6666
+      port: 3003
+      targetPort: 3003
 ---
 apiVersion: apps/v1
 kind: Deployment

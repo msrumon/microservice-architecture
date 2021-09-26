@@ -19,7 +19,7 @@ COPY --from=build /app/package.json ./
 
 RUN npm install --production
 
-EXPOSE 6666
+EXPOSE 3003
 
 USER node
 
