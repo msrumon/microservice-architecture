@@ -3,3 +3,4 @@ test
 .eslintrc.js
 .gitignore
 .prettierrc
+Dockerfile
