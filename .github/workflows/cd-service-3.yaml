@@ -23,6 +23,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Extract metadata of the image
+        id: metadata
         uses: docker/metadata-action@v3
         with:
           images: ghcr.io/${{ github.repository_owner }}/service-3
@@ -31,5 +32,5 @@ jobs:
         with:
           context: service-3
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
+          tags: ${{ steps.metadata.outputs.tags }}
+          labels: ${{ steps.metadata.outputs.labels }}
