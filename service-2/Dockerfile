@@ -19,8 +19,8 @@ COPY --from=build /app/package.json ./
 
 RUN npm install --production
 
-EXPOSE 5000
+EXPOSE 5555
 
 USER node
 
-CMD [ "node", "main" ]
+CMD [ "node", "main.js" ]

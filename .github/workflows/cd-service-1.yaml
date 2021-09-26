@@ -10,9 +10,6 @@ jobs:
   build-push:
     name: Build the image and push it to the container registry
     runs-on: ubuntu-latest
-    # permissions:
-    #   contents: read
-    #   packages: write
     steps:
       - name: Checkout to branch
         uses: actions/checkout@v2
