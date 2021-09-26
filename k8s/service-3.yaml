@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-service-3
+spec:
+  selector:
+    app: service-3
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 4000
+      targetPort: 4000
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-service-3
+spec:
+  selector:
+    matchLabels:
+      app: service-3
+  template:
+    metadata:
+      labels:
+        app: service-3
+    spec:
+      containers:
+        - name: service-3
+          image: ghcr.io/wereReallyGood/service-3:latest
+          resources:
+            limits:
+              cpu: '2'
+              memory: 256Mi
