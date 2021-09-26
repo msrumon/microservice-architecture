@@ -26,7 +26,7 @@ spec:
     spec:
       containers:
         - name: service-1
-          image: ghcr.io/wereReallyGood/service-1:latest
+          image: ghcr.io/msrumon/service-1:master
           resources:
             limits:
               cpu: '2'

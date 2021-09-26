@@ -4,15 +4,15 @@ metadata:
   name: tests
 build:
   artifacts:
-  - image: ghcr.io/werereallygood/service-1
+  - image: ghcr.io/msrumon/service-1:master
     context: service-1
     docker:
       dockerfile: Dockerfile
-  - image: ghcr.io/werereallygood/service-2
+  - image: ghcr.io/msrumon/service-2:master
     context: service-2
     docker:
       dockerfile: Dockerfile
-  - image: ghcr.io/werereallygood/service-3
+  - image: ghcr.io/msrumon/service-3:master
     context: service-3
     docker:
       dockerfile: Dockerfile
