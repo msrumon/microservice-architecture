@@ -8,7 +8,10 @@ async function bootstrap() {
   app.connectMicroservice<MicroserviceOptions>(
     {
       transport: Transport.NATS,
-      options: { servers: 'nats://nats-service.default:4222', queue: 'service-2' },
+      options: {
+        servers: 'nats://nats-service:4222',
+        queue: 'service-2',
+      },
     },
     { inheritAppConfig: true },
   );

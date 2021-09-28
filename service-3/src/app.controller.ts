@@ -1,4 +1,14 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpCode,
+  HttpStatus,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
 import { AppService } from './app.service';
 import { Service3 } from './schemas/service3.schema';
 
@@ -12,6 +22,7 @@ export class AppController {
   }
 
   @Post()
+  @HttpCode(HttpStatus.CREATED)
   async postData(@Body() body: object): Promise<Service3> {
     return this.appService.storeData(body);
   }

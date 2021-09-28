@@ -3,6 +3,8 @@ import {
   Controller,
   Delete,
   Get,
+  HttpCode,
+  HttpStatus,
   Param,
   Post,
   Put,
@@ -20,6 +22,7 @@ export class AppController {
   }
 
   @Post()
+  @HttpCode(HttpStatus.CREATED)
   async postData(@Body() body: object): Promise<Service1> {
     return await this.appService.storeData(body);
   }
