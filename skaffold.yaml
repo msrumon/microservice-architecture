@@ -1,28 +1,22 @@
 apiVersion: skaffold/v2beta23
 kind: Config
 metadata:
-  name: tests
+  name: microservice-template
 build:
   artifacts:
-  - image: ghcr.io/msrumon/service-1
-    context: service-1
-    docker:
-      dockerfile: Dockerfile
-  - image: ghcr.io/msrumon/service-2
-    context: service-2
-    docker:
-      dockerfile: Dockerfile
-  - image: ghcr.io/msrumon/service-3
-    context: service-3
-    docker:
-      dockerfile: Dockerfile
+    - image: ghcr.io/msrumon/service-1
+      context: service-1
+      docker:
+        dockerfile: Dockerfile
+    - image: ghcr.io/msrumon/service-2
+      context: service-2
+      docker:
+        dockerfile: Dockerfile
+    - image: ghcr.io/msrumon/service-3
+      context: service-3
+      docker:
+        dockerfile: Dockerfile
 deploy:
   kubectl:
     manifests:
-    - k8s/nats.yaml
-    - k8s/service-1-app.yaml
-    - k8s/service-1-db.yaml
-    - k8s/service-2-app.yaml
-    - k8s/service-2-db.yaml
-    - k8s/service-3-app.yaml
-    - k8s/service-3-db.yaml
+      - k8s/*
