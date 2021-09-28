@@ -4,7 +4,7 @@ metadata:
   name: nats-service
 spec:
   selector:
-    identity: nats
+    app: nats-server
   type: ClusterIP
   ports:
     - name: client
@@ -23,11 +23,11 @@ metadata:
 spec:
   selector:
     matchLabels:
-      identity: nats
+      app: nats-server
   template:
     metadata:
       labels:
-        identity: nats
+        app: nats-server
     spec:
       containers:
         - name: nats
@@ -45,7 +45,7 @@ spec:
             - '2'
             - '-SD'
             - '-cid'
-            - 'identity'
+            - 'msrumon'
           resources:
             limits:
               cpu: '2'
