@@ -27,7 +27,7 @@ spec:
       containers:
         - name: service-2-app
           image: ghcr.io/msrumon/service-2:master
-          resources:
-            limits:
-              cpu: '2'
-              memory: 256Mi
+          # resources:
+          #   limits:
+          #     cpu: '2'
+          #     memory: 256Mi

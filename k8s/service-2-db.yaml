@@ -27,7 +27,7 @@ spec:
       containers:
         - name: service-2-db
           image: mongo:latest
-          resources:
-            limits:
-              cpu: '2'
-              memory: 256Mi
+          # resources:
+          #   limits:
+          #     cpu: '2'
+          #     memory: 256Mi

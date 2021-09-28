@@ -46,7 +46,7 @@ spec:
             - '-SD'
             - '-cid'
             - 'msrumon'
-          resources:
-            limits:
-              cpu: '2'
-              memory: 256Mi
+          # resources:
+          #   limits:
+          #     cpu: '2'
+          #     memory: 256Mi
