@@ -27,12 +27,12 @@ export class AppController {
     return this.appService.storeData(body);
   }
 
-  @Get()
+  @Get(':id')
   async getDatum(@Param('id') id: string): Promise<Service3> {
     return this.appService.fetchDatum(id);
   }
 
-  @Put()
+  @Put(':id')
   async putDatum(
     @Param('id') id: string,
     @Body() body: object,
@@ -40,7 +40,7 @@ export class AppController {
     return this.appService.updateDatum(id, body);
   }
 
-  @Delete()
+  @Delete(':id')
   async deleteDatum(@Param('id') id: string): Promise<Service3> {
     return this.appService.deleteDatum(id);
   }
