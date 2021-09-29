@@ -1,0 +1,24 @@
+name: Deployment to Kubernetes cluster
+
+on:
+  push:
+    paths:
+      - .github/**
+      - k8s/common/**
+      - k8s/production/**
+
+jobs:
+  deploy:
+    name: Deploy configs to the cluster
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout to branch
+        uses: actions/checkout@v2
+      - name: Install doctl binary
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+      - name: Save kubeconfig of DigitalOcean
+        run: doctl kubernetes cluster kubeconfig save ${{ secrets.KUBERNETES_CLUSTER_NAME }}
+      - name: Apply all configs
+        run: kubectl apply -f k8s/production/** -f k8s/common/**

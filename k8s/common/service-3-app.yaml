@@ -29,5 +29,5 @@ spec:
           image: ghcr.io/msrumon/service-3:master
           # resources:
           #   limits:
-          #     cpu: '8'
+          #     cpu: '4'
           #     memory: 1Gi

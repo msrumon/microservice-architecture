@@ -1,0 +1,24 @@
+name: CI of service-3
+
+on:
+  pull_request:
+    paths:
+      - service-3/**
+
+jobs:
+  test:
+    name: Build the app and run the test suite
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout to branch
+        uses: actions/checkout@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: current
+      - name: Change directory to service-3
+        run: cd service-3
+      - name: Install dependencies
+        run: npm install
+      - name: Run test suite
+        run: npm test

@@ -8,7 +8,7 @@ on:
 
 jobs:
   build-push:
-    name: Build the image and push it to the container registry
+    name: Build the image and push to the container registry
     runs-on: ubuntu-latest
     steps:
       - name: Checkout to branch
@@ -31,3 +31,16 @@ jobs:
           push: true
           tags: ${{ steps.metadata.outputs.tags }}
           labels: ${{ steps.metadata.outputs.labels }}
+  deploy:
+    needs: build-push
+    name: Update deployment of the Kubernetes cluster
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install doctl binary
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+      - name: Save kubeconfig of DigitalOcean
+        run: doctl kubernetes cluster kubeconfig save ${{ secrets.KUBERNETES_CLUSTER_NAME }}
+      - name: Rollout to latest image pulled from the container registry
+        run: kubectl rollout restart deployment service-3
