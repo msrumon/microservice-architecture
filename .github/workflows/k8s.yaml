@@ -21,4 +21,4 @@ jobs:
       - name: Save kubeconfig of DigitalOcean
         run: doctl kubernetes cluster kubeconfig save ${{ secrets.KUBERNETES_CLUSTER_NAME }}
       - name: Apply all configs
-        run: kubectl apply -f k8s/production/** -f k8s/common/**
+        run: kubectl apply -f k8s/production -f k8s/common
