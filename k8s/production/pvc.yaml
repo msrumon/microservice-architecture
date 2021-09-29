@@ -1,0 +1,41 @@
+# apiVersion: v1
+# kind: PersistentVolumeClaim
+# metadata:
+#   name: service-1-db-pvc
+# spec:
+#   volumeName: service-1-db-pv
+#   resources:
+#     requests:
+#       storage: 250Gi
+#   volumeMode: Filesystem
+#   accessModes:
+#     - ReadWriteMany
+#   storageClassName: do-block-storage
+# ---
+# apiVersion: v1
+# kind: PersistentVolumeClaim
+# metadata:
+#   name: service-2-db-pvc
+# spec:
+#   volumeName: service-2-db-pv
+#   resources:
+#     requests:
+#       storage: 250Gi
+#   volumeMode: Filesystem
+#   accessModes:
+#     - ReadWriteMany
+#   storageClassName: do-block-storage
+# ---
+# apiVersion: v1
+# kind: PersistentVolumeClaim
+# metadata:
+#   name: service-3-db-pvc
+# spec:
+#   volumeName: service-3-db-pv
+#   resources:
+#     requests:
+#       storage: 250Gi
+#   volumeMode: Filesystem
+#   accessModes:
+#     - ReadWriteMany
+#   storageClassName: do-block-storage

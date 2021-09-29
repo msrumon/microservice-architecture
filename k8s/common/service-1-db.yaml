@@ -27,7 +27,14 @@ spec:
       containers:
         - name: service-1-db
           image: mongo:latest
+          volumeMounts:
+            - name: service-1-db-pv
+              mountPath: /data/db
           # resources:
           #   limits:
           #     cpu: '8'
           #     memory: 1Gi
+      volumes:
+        - name: service-1-db-pv
+          persistentVolumeClaim:
+            claimName: service-1-db-pvc

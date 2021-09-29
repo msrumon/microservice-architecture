@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: service-service-2-db
+  name: service-service-3-db
 spec:
   selector:
-    app: service-2-db
+    app: service-3-db
   type: ClusterIP
   ports:
     - protocol: TCP
@@ -14,20 +14,27 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: deployment-service-2-db
+  name: deployment-service-3-db
 spec:
   selector:
     matchLabels:
-      app: service-2-db
+      app: service-3-db
   template:
     metadata:
       labels:
-        app: service-2-db
+        app: service-3-db
     spec:
       containers:
-        - name: service-2-db
+        - name: service-3-db
           image: mongo:latest
+          volumeMounts:
+            - name: service-3-db-pv
+              mountPath: /data/db
           # resources:
           #   limits:
           #     cpu: '8'
           #     memory: 1Gi
+      volumes:
+        - name: service-3-db-pv
+          persistentVolumeClaim:
+            claimName: service-3-db-pvc
