@@ -43,4 +43,4 @@ jobs:
       - name: Save kubeconfig of DigitalOcean
         run: doctl kubernetes cluster kubeconfig save ${{ secrets.KUBERNETES_CLUSTER_NAME }}
       - name: Rollout to latest image pulled from the container registry
-        run: kubectl rollout restart deployment service-3
+        run: kubectl rollout restart deployment deployment-service-3-app
