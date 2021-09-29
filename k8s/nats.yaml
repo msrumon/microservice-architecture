@@ -38,15 +38,15 @@ spec:
             - '-m'
             - '8222'
             - '-hbi'
-            - '5s'
+            - '1m'
             - '-hbt'
             - '5s'
             - '-hbf'
-            - '2'
+            - '3'
             - '-SD'
             - '-cid'
             - 'msrumon'
           # resources:
           #   limits:
-          #     cpu: '2'
-          #     memory: 256Mi
+          #     cpu: '8'
+          #     memory: 1Gi

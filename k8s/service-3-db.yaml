@@ -29,5 +29,5 @@ spec:
           image: mongo:latest
           # resources:
           #   limits:
-          #     cpu: '2'
-          #     memory: 256Mi
+          #     cpu: '8'
+          #     memory: 1Gi
