@@ -2,8 +2,9 @@ name: CD of service-2
 
 on:
   push:
+    branches:
+      - master
     paths:
-      - .github/**
       - service-2/**
 
 jobs:
@@ -18,7 +19,7 @@ jobs:
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          password: ${{ github.token }}
       - name: Extract metadata of the image
         id: metadata
         uses: docker/metadata-action@v3
@@ -36,11 +37,11 @@ jobs:
     name: Update deployment of the Kubernetes cluster
     runs-on: ubuntu-latest
     steps:
-      - name: Install doctl binary
-        uses: digitalocean/action-doctl@v2
+      - name: Set K8S context
+        uses: azure/k8s-set-context@v1
         with:
-          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
-      - name: Save kubeconfig of DigitalOcean
-        run: doctl kubernetes cluster kubeconfig save ${{ secrets.KUBERNETES_CLUSTER_NAME }}
+          method: kubeconfig
+          kubeconfig: ${{ secrets.PROVIDER_KUBECONFIG_CONTENTS }}
+          context: ${{ secrets.PROVIDER_KUBECONFIG_CONTEXT }}
       - name: Rollout to latest image pulled from the container registry
         run: kubectl rollout restart deployment deployment-service-2-app

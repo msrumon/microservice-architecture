@@ -2,8 +2,9 @@ name: Deployment to Kubernetes cluster
 
 on:
   push:
+    branches:
+      - master
     paths:
-      - .github/**
       - k8s/common/**
       - k8s/production/**
 
@@ -14,11 +15,15 @@ jobs:
     steps:
       - name: Checkout to branch
         uses: actions/checkout@v2
-      - name: Install doctl binary
-        uses: digitalocean/action-doctl@v2
+      - name: Set K8S context
+        uses: azure/k8s-set-context@v1
         with:
-          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
-      - name: Save kubeconfig of DigitalOcean
-        run: doctl kubernetes cluster kubeconfig save ${{ secrets.KUBERNETES_CLUSTER_NAME }}
-      - name: Apply all configs
-        run: kubectl apply -f k8s/production -f k8s/common
+          method: kubeconfig
+          kubeconfig: ${{ secrets.PROVIDER_KUBECONFIG_CONTENTS }}
+          context: ${{ secrets.PROVIDER_KUBECONFIG_CONTEXT }}
+      - name: Apply the manifests
+        uses: azure/k8s-deploy@v1
+        with:
+          manifests: |
+            k8s/production/*
+            k8s/common/*

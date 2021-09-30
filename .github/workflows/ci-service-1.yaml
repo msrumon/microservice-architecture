@@ -2,6 +2,8 @@ name: CI of service-1
 
 on:
   pull_request:
+    branches:
+      - master
     paths:
       - service-1/**
 
@@ -16,9 +18,5 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: current
-      - name: Change directory to service-1
-        run: cd service-1
-      - name: Install dependencies
-        run: npm install
       - name: Run test suite
-        run: npm test
+        run: cd service-1 && npm install && npm test
