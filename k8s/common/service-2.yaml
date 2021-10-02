@@ -27,14 +27,14 @@ spec:
         - name: service-2-db
           image: mongo:latest
           volumeMounts:
-            - name: service-2-db-pv
+            - name: service-2-db-volume
               mountPath: /data/db
           resources:
             limits:
               cpu: '4'
               memory: 1Gi
       volumes:
-        - name: service-2-db-pv
+        - name: service-2-db-volume
           persistentVolumeClaim:
             claimName: service-2-db-pvc
 ---
