@@ -14,6 +14,7 @@ skaffold run
 
 The following secrets must be set:
 
+- `PROVIDER_INGRESS_MANIFEST`: The path to the ingress manifest for the provider.
 - `PROVIDER_KUBECONFIG_CONTENTS`: The contents of the kubeconfig file for the provider.
 - `PROVIDER_KUBECONFIG_CONTEXT`: The context to use in the kubeconfig file for the provider.
 

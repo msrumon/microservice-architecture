@@ -5,7 +5,6 @@ metadata:
 spec:
   selector:
     app: service-1-db
-  type: ClusterIP
   ports:
     - protocol: TCP
       port: 27017
@@ -30,10 +29,10 @@ spec:
           # volumeMounts:
           #   - name: service-1-db-pv
           #     mountPath: /data/db
-          # resources:
-          #   limits:
-          #     cpu: '4'
-          #     memory: 1Gi
+          resources:
+            limits:
+              cpu: '4'
+              memory: 1Gi
       # volumes:
       #   - name: service-1-db-pv
       #     persistentVolumeClaim:

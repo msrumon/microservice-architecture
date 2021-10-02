@@ -5,7 +5,6 @@ metadata:
 spec:
   selector:
     app: service-1-app
-  type: LoadBalancer
   ports:
     - protocol: TCP
       port: 3001
@@ -27,7 +26,7 @@ spec:
       containers:
         - name: service-1-app
           image: ghcr.io/msrumon/service-1:master
-          # resources:
-          #   limits:
-          #     cpu: '4'
-          #     memory: 1Gi
+          resources:
+            limits:
+              cpu: '4'
+              memory: 1Gi
