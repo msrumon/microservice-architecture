@@ -1,44 +1,44 @@
-# apiVersion: v1
-# kind: PersistentVolume
-# metadata:
-#   name: service-1-db-pv
-# spec:
-#   capacity:
-#     storage: 250Mi
-#   volumeMode: Filesystem
-#   accessModes:
-#     - ReadWriteOnce
-#   storageClassName: ''
-#   hostPath:
-#     path: /mnt/wsl/service-1-pv
-#     type: DirectoryOrCreate
-# ---
-# apiVersion: v1
-# kind: PersistentVolume
-# metadata:
-#   name: service-2-db-pv
-# spec:
-#   capacity:
-#     storage: 250Mi
-#   volumeMode: Filesystem
-#   accessModes:
-#     - ReadWriteOnce
-#   storageClassName: ''
-#   hostPath:
-#     path: /mnt/wsl/service-2-pv
-#     type: DirectoryOrCreate
-# ---
-# apiVersion: v1
-# kind: PersistentVolume
-# metadata:
-#   name: service-3-db-pv
-# spec:
-#   capacity:
-#     storage: 250Mi
-#   volumeMode: Filesystem
-#   accessModes:
-#     - ReadWriteOnce
-#   storageClassName: ''
-#   hostPath:
-#     path: /mnt/wsl/service-3-pv
-#     type: DirectoryOrCreate
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: service-1-db-pv
+spec:
+  capacity:
+    storage: 250Mi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: ''
+  hostPath:
+    path: /mnt/wsl/service-1-pv
+    type: DirectoryOrCreate
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: service-2-db-pv
+spec:
+  capacity:
+    storage: 250Mi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: ''
+  hostPath:
+    path: /mnt/wsl/service-2-pv
+    type: DirectoryOrCreate
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: service-3-db-pv
+spec:
+  capacity:
+    storage: 250Mi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: ''
+  hostPath:
+    path: /mnt/wsl/service-3-pv
+    type: DirectoryOrCreate

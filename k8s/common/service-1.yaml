@@ -1,0 +1,72 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-service-1-db
+spec:
+  selector:
+    app: service-1-db
+  ports:
+    - protocol: TCP
+      port: 27017
+      targetPort: 27017
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-service-1-db
+spec:
+  selector:
+    matchLabels:
+      app: service-1-db
+  template:
+    metadata:
+      labels:
+        app: service-1-db
+    spec:
+      containers:
+        - name: service-1-db
+          image: mongo:latest
+          volumeMounts:
+            - name: service-1-db-pv
+              mountPath: /data/db
+          resources:
+            limits:
+              cpu: '4'
+              memory: 1Gi
+      volumes:
+        - name: service-1-db-pv
+          persistentVolumeClaim:
+            claimName: service-1-db-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-service-1-app
+spec:
+  selector:
+    app: service-1-app
+  ports:
+    - protocol: TCP
+      port: 3001
+      targetPort: 3001
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-service-1-app
+spec:
+  selector:
+    matchLabels:
+      app: service-1-app
+  template:
+    metadata:
+      labels:
+        app: service-1-app
+    spec:
+      containers:
+        - name: service-1-app
+          image: ghcr.io/msrumon/service-1:master
+          resources:
+            limits:
+              cpu: '4'
+              memory: 1Gi
