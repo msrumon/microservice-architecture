@@ -6,6 +6,13 @@ on:
       - master
     paths:
       - service-2/**
+  workflow_run:
+    workflows:
+      - CI of service-2
+    branches:
+      - master
+    types:
+      - completed
 
 jobs:
   build-push:
