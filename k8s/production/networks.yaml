@@ -7,7 +7,7 @@
 # spec:
 #   rules:
 #     - host: '*.msrumon.com'
-#       https:
+#       http:
 #         paths:
 #           - path: /api/service-1
 #             pathType: Prefix

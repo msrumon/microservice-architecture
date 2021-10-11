@@ -46,6 +46,9 @@ spec:
             - '-cid'
             - 'msrumon'
           resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
             limits:
-              cpu: '4'
-              memory: 1Gi
+              cpu: 750m
+              memory: 256Mi

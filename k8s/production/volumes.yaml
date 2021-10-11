@@ -4,11 +4,9 @@
 #   name: service-1-db-pv
 # spec:
 #   capacity:
-#     storage: 250Gi
+#     storage: 50Gi
 #   volumeMode: Filesystem
 #   accessModes:
-#     - ReadWriteOnce
-#     - ReadOnlyMany
 #     - ReadWriteMany
 #   storageClassName: do-block-storage
 #   csi:
@@ -17,6 +15,20 @@
 #     volumeHandle: ''
 #     volumeAttributes:
 #       com.digitalocean.csi/noformat: 'true'
+# ---
+# apiVersion: v1
+# kind: PersistentVolumeClaim
+# metadata:
+#   name: service-1-db-pvc
+# spec:
+#   volumeName: service-1-db-pv
+#   resources:
+#     requests:
+#       storage: 50Gi
+#   volumeMode: Filesystem
+#   accessModes:
+#     - ReadWriteMany
+#   storageClassName: do-block-storage
 # ---
 # apiVersion: v1
 # kind: PersistentVolume
@@ -24,11 +36,9 @@
 #   name: service-2-db-pv
 # spec:
 #   capacity:
-#     storage: 250Gi
+#     storage: 50Gi
 #   volumeMode: Filesystem
 #   accessModes:
-#     - ReadWriteOnce
-#     - ReadOnlyMany
 #     - ReadWriteMany
 #   storageClassName: do-block-storage
 #   csi:
@@ -39,16 +49,28 @@
 #       com.digitalocean.csi/noformat: 'true'
 # ---
 # apiVersion: v1
+# kind: PersistentVolumeClaim
+# metadata:
+#   name: service-2-db-pvc
+# spec:
+#   volumeName: service-2-db-pv
+#   resources:
+#     requests:
+#       storage: 50Gi
+#   volumeMode: Filesystem
+#   accessModes:
+#     - ReadWriteMany
+#   storageClassName: do-block-storage
+# ---
+# apiVersion: v1
 # kind: PersistentVolume
 # metadata:
 #   name: service-3-db-pv
 # spec:
 #   capacity:
-#     storage: 250Gi
+#     storage: 50Gi
 #   volumeMode: Filesystem
 #   accessModes:
-#     - ReadWriteOnce
-#     - ReadOnlyMany
 #     - ReadWriteMany
 #   storageClassName: do-block-storage
 #   csi:
@@ -57,3 +79,17 @@
 #     volumeHandle: ''
 #     volumeAttributes:
 #       com.digitalocean.csi/noformat: 'true'
+# ---
+# apiVersion: v1
+# kind: PersistentVolumeClaim
+# metadata:
+#   name: service-3-db-pvc
+# spec:
+#   volumeName: service-3-db-pv
+#   resources:
+#     requests:
+#       storage: 50Gi
+#   volumeMode: Filesystem
+#   accessModes:
+#     - ReadWriteMany
+#   storageClassName: do-block-storage

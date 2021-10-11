@@ -26,17 +26,20 @@ spec:
       containers:
         - name: service-2-db
           image: mongo:latest
-          volumeMounts:
-            - name: service-2-db-volume
-              mountPath: /data/db
+          # volumeMounts:
+          #   - name: service-2-db-volume
+          #     mountPath: /data/db
           resources:
+            requests:
+              cpu: 250m
+              memory: 128Mi
             limits:
-              cpu: '4'
-              memory: 1Gi
-      volumes:
-        - name: service-2-db-volume
-          persistentVolumeClaim:
-            claimName: service-2-db-pvc
+              cpu: 1000m
+              memory: 256Mi
+      # volumes:
+      #   - name: service-2-db-volume
+      #     persistentVolumeClaim:
+      #       claimName: service-2-db-pvc
 ---
 apiVersion: v1
 kind: Service
@@ -67,6 +70,9 @@ spec:
         - name: service-2-app
           image: ghcr.io/msrumon/service-2:master
           resources:
+            requests:
+              cpu: 500m
+              memory: 256Mi
             limits:
-              cpu: '4'
-              memory: 1Gi
+              cpu: 1500m
+              memory: 512Mi
