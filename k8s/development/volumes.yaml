@@ -4,43 +4,43 @@ metadata:
   name: local-storage
 provisioner: kubernetes.io/no-provisioner
 volumeBindingMode: WaitForFirstConsumer
-reclaimPolicy: Delete
----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: nats-pv
-spec:
-  capacity:
-    storage: 50Mi
-  volumeMode: Filesystem
-  accessModes:
-    - ReadWriteOnce
-  storageClassName: local-storage
-  local:
-    path: /mnt/wsl/nats-pv
-  nodeAffinity:
-    required:
-      nodeSelectorTerms:
-        - matchExpressions:
-            - key: kubernetes.io/hostname
-              operator: In
-              values:
-                - docker-desktop
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: nats-pvc
-spec:
-  volumeName: nats-pv
-  resources:
-    requests:
-      storage: 50Mi
-  volumeMode: Filesystem
-  accessModes:
-    - ReadWriteOnce
-  storageClassName: local-storage
+# ---
+# apiVersion: v1
+# kind: PersistentVolume
+# metadata:
+#   name: nats-pv
+# spec:
+#   capacity:
+#     storage: 50Mi
+#   volumeMode: Filesystem
+#   accessModes:
+#     - ReadWriteOnce
+#   storageClassName: local-storage
+#   local:
+#     path: /mnt/wsl/nats-pv
+#   nodeAffinity:
+#     required:
+#       nodeSelectorTerms:
+#         - matchExpressions:
+#             - key: kubernetes.io/hostname
+#               operator: In
+#               values:
+#                 - docker-desktop
+#                 - minikube
+# ---
+# apiVersion: v1
+# kind: PersistentVolumeClaim
+# metadata:
+#   name: nats-pvc
+# spec:
+#   volumeName: nats-pv
+#   resources:
+#     requests:
+#       storage: 50Mi
+#   volumeMode: Filesystem
+#   accessModes:
+#     - ReadWriteOnce
+#   storageClassName: local-storage
 ---
 apiVersion: v1
 kind: PersistentVolume
@@ -63,6 +63,7 @@ spec:
               operator: In
               values:
                 - docker-desktop
+                - minikube
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -99,6 +100,7 @@ spec:
               operator: In
               values:
                 - docker-desktop
+                - mini
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -135,6 +137,7 @@ spec:
               operator: In
               values:
                 - docker-desktop
+                - mini
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
