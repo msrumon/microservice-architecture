@@ -1,54 +1,54 @@
-# apiVersion: v1
-# kind: Service
-# metadata:
-#   name: service-nats-db
-# spec:
-#   selector:
-#     app: nats-db
-#   ports:
-#     - protocol: TCP
-#       port: 5432
-#       targetPort: 5432
-# ---
-# apiVersion: apps/v1
-# kind: Deployment
-# metadata:
-#   name: deployment-nats-db
-# spec:
-#   selector:
-#     matchLabels:
-#       app: nats-db
-#   template:
-#     metadata:
-#       labels:
-#         app: nats-db
-#     spec:
-#       containers:
-#         - name: nats-db
-#           image: postgres:latest
-#           envFrom:
-#             - secretRef:
-#                 name: nats-db-secrets
-#           volumeMounts:
-#             - name: nats-data-volume
-#               mountPath: /var/lib/postgresql/data
-#             - name: nats-initdb-volume
-#               mountPath: /docker-entrypoint-initdb.d
-#           resources:
-#             requests:
-#               cpu: 250m
-#               memory: 128Mi
-#             limits:
-#               cpu: 1000m
-#               memory: 256Mi
-#       volumes:
-#         - name: nats-data-volume
-#           persistentVolumeClaim:
-#             claimName: nats-pvc
-#         - name: nats-initdb-volume
-#           persistentVolumeClaim:
-#             claimName: nats-pvc
-# ---
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-nats-db
+spec:
+  selector:
+    app: nats-db
+  ports:
+    - protocol: TCP
+      port: 5432
+      targetPort: 5432
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-nats-db
+spec:
+  selector:
+    matchLabels:
+      app: nats-db
+  template:
+    metadata:
+      labels:
+        app: nats-db
+    spec:
+      containers:
+        - name: nats-db
+          image: postgres:latest
+          envFrom:
+            - secretRef:
+                name: nats-db-secrets
+          volumeMounts:
+            - name: nats-data-volume
+              mountPath: /var/lib/postgresql/data
+            - name: nats-initdb-volume
+              mountPath: /docker-entrypoint-initdb.d
+          resources:
+            requests:
+              cpu: 250m
+              memory: 128Mi
+            limits:
+              cpu: 1000m
+              memory: 256Mi
+      volumes:
+        - name: nats-data-volume
+          persistentVolumeClaim:
+            claimName: nats-pvc
+        - name: nats-initdb-volume
+          persistentVolumeClaim:
+            claimName: nats-pvc
+---
 apiVersion: v1
 kind: Service
 metadata:
@@ -109,10 +109,10 @@ spec:
             # - '10'
             - '--cluster_id'
             - 'msrumon'
-          # volumeMounts:
-          #   - name: nats-scripts-volume
-          #     mountPath: ./scripts
-          #     readOnly: true
+          volumeMounts:
+            - name: nats-scripts-volume
+              mountPath: ./scripts
+              readOnly: true
           resources:
             requests:
               cpu: 100m
@@ -120,7 +120,7 @@ spec:
             limits:
               cpu: 750m
               memory: 256Mi
-      # volumes:
-      #   - name: nats-scripts-volume
-      #     persistentVolumeClaim:
-      #       claimName: nats-pvc
+      volumes:
+        - name: nats-scripts-volume
+          persistentVolumeClaim:
+            claimName: nats-pvc
