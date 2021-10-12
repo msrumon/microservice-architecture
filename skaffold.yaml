@@ -13,5 +13,7 @@ build:
 deploy:
   kubectl:
     manifests:
-      - k8s/development/*
+      - k8s/development/secrets.yaml
+      - k8s/development/volumes.yaml
       - k8s/common/*
+      - k8s/development/networks.yaml

@@ -1,93 +1,151 @@
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
-  name: local-hostpath-storage
+  name: local-storage
 provisioner: kubernetes.io/no-provisioner
 volumeBindingMode: WaitForFirstConsumer
+reclaimPolicy: Delete
 ---
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: service-1-db-pv
+  name: nats-pv
+spec:
+  capacity:
+    storage: 50Mi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: local-storage
+  local:
+    path: /mnt/wsl/nats-pv
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: kubernetes.io/hostname
+              operator: In
+              values:
+                - docker-desktop
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: nats-pvc
+spec:
+  volumeName: nats-pv
+  resources:
+    requests:
+      storage: 50Mi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: local-storage
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: service-1-pv
 spec:
   capacity:
     storage: 100Mi
   volumeMode: Filesystem
   accessModes:
     - ReadWriteOnce
-  storageClassName: local-hostpath-storage
-  hostPath:
+  storageClassName: local-storage
+  local:
     path: /mnt/wsl/service-1-pv
-    type: DirectoryOrCreate
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: kubernetes.io/hostname
+              operator: In
+              values:
+                - docker-desktop
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: service-1-db-pvc
+  name: service-1-pvc
 spec:
-  volumeName: service-1-db-pv
+  volumeName: service-1-pv
   resources:
     requests:
       storage: 100Mi
   volumeMode: Filesystem
   accessModes:
     - ReadWriteOnce
-  storageClassName: local-hostpath-storage
+  storageClassName: local-storage
 ---
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: service-2-db-pv
+  name: service-2-pv
 spec:
   capacity:
     storage: 100Mi
   volumeMode: Filesystem
   accessModes:
     - ReadWriteOnce
-  storageClassName: local-hostpath-storage
-  hostPath:
+  storageClassName: local-storage
+  local:
     path: /mnt/wsl/service-2-pv
-    type: DirectoryOrCreate
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: kubernetes.io/hostname
+              operator: In
+              values:
+                - docker-desktop
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: service-2-db-pvc
+  name: service-2-pvc
 spec:
-  volumeName: service-2-db-pv
+  volumeName: service-2-pv
   resources:
     requests:
       storage: 100Mi
   volumeMode: Filesystem
   accessModes:
     - ReadWriteOnce
-  storageClassName: local-hostpath-storage
+  storageClassName: local-storage
 ---
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: service-3-db-pv
+  name: service-3-pv
 spec:
   capacity:
     storage: 100Mi
   volumeMode: Filesystem
   accessModes:
     - ReadWriteOnce
-  storageClassName: local-hostpath-storage
-  hostPath:
+  storageClassName: local-storage
+  local:
     path: /mnt/wsl/service-3-pv
-    type: DirectoryOrCreate
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: kubernetes.io/hostname
+              operator: In
+              values:
+                - docker-desktop
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: service-3-db-pvc
+  name: service-3-pvc
 spec:
-  volumeName: service-3-db-pv
+  volumeName: service-3-pv
   resources:
     requests:
       storage: 100Mi
   volumeMode: Filesystem
   accessModes:
     - ReadWriteOnce
-  storageClassName: local-hostpath-storage
+  storageClassName: local-storage

@@ -21,6 +21,12 @@ jobs:
           method: kubeconfig
           kubeconfig: ${{ secrets.PROVIDER_KUBECONFIG_CONTENTS }}
           context: ${{ secrets.PROVIDER_KUBECONFIG_CONTEXT }}
+      - name: Create secrets
+        uses: azure/k8s-create-secret@v1
+        with:
+          secret-name: nats-db-secrets
+          secret-type: Opaque
+          arguments: ${{  secrets.SECRETS_NATS_DB }}
       - name: Setup Ingress controller
         run: kubectl apply -f ${{ secrets.PROVIDER_INGRESS_MANIFEST }}
       - name: Apply the manifests

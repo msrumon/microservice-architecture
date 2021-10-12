@@ -1,7 +1,7 @@
 # apiVersion: v1
 # kind: PersistentVolume
 # metadata:
-#   name: service-1-db-pv
+#   name: nats-pv
 # spec:
 #   capacity:
 #     storage: 50Gi
@@ -19,9 +19,9 @@
 # apiVersion: v1
 # kind: PersistentVolumeClaim
 # metadata:
-#   name: service-1-db-pvc
+#   name: nats-pvc
 # spec:
-#   volumeName: service-1-db-pv
+#   volumeName: nats-pv
 #   resources:
 #     requests:
 #       storage: 50Gi
@@ -33,7 +33,7 @@
 # apiVersion: v1
 # kind: PersistentVolume
 # metadata:
-#   name: service-2-db-pv
+#   name: service-1-pv
 # spec:
 #   capacity:
 #     storage: 50Gi
@@ -51,9 +51,9 @@
 # apiVersion: v1
 # kind: PersistentVolumeClaim
 # metadata:
-#   name: service-2-db-pvc
+#   name: service-1-pvc
 # spec:
-#   volumeName: service-2-db-pv
+#   volumeName: service-1-pv
 #   resources:
 #     requests:
 #       storage: 50Gi
@@ -65,7 +65,7 @@
 # apiVersion: v1
 # kind: PersistentVolume
 # metadata:
-#   name: service-3-db-pv
+#   name: service-2-pv
 # spec:
 #   capacity:
 #     storage: 50Gi
@@ -83,9 +83,41 @@
 # apiVersion: v1
 # kind: PersistentVolumeClaim
 # metadata:
-#   name: service-3-db-pvc
+#   name: service-2-pvc
 # spec:
-#   volumeName: service-3-db-pv
+#   volumeName: service-2-pv
+#   resources:
+#     requests:
+#       storage: 50Gi
+#   volumeMode: Filesystem
+#   accessModes:
+#     - ReadWriteMany
+#   storageClassName: do-block-storage
+# ---
+# apiVersion: v1
+# kind: PersistentVolume
+# metadata:
+#   name: service-3-pv
+# spec:
+#   capacity:
+#     storage: 50Gi
+#   volumeMode: Filesystem
+#   accessModes:
+#     - ReadWriteMany
+#   storageClassName: do-block-storage
+#   csi:
+#     driver: dobs.csi.digitalocean.com
+#     fsType: ext4
+#     volumeHandle: ''
+#     volumeAttributes:
+#       com.digitalocean.csi/noformat: 'true'
+# ---
+# apiVersion: v1
+# kind: PersistentVolumeClaim
+# metadata:
+#   name: service-3-pvc
+# spec:
+#   volumeName: service-3-pv
 #   resources:
 #     requests:
 #       storage: 50Gi
