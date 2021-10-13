@@ -9,24 +9,24 @@ spec:
     - host: localhost
       http:
         paths:
-          - path: /api/service-1
+          - path: /api/service1
             pathType: Prefix
             backend:
               service:
-                name: service-service-1-app
+                name: service-service1-app
                 port:
                   number: 3001
-          - path: /api/service-2
+          - path: /api/service2
             pathType: Prefix
             backend:
               service:
-                name: service-service-2-app
+                name: service-service2-app
                 port:
                   number: 3002
-          - path: /api/service-3
+          - path: /api/service3
             pathType: Prefix
             backend:
               service:
-                name: service-service-3-app
+                name: service-service3-app
                 port:
                   number: 3003

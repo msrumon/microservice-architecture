@@ -1,19 +1,18 @@
-apiVersion: skaffold/v2beta23
+apiVersion: skaffold/v2beta24
 kind: Config
 metadata:
-  name: microservice-template
+  name: microservice-architecture
 build:
   artifacts:
-    - image: ghcr.io/msrumon/service-1
-      context: service-1
-    - image: ghcr.io/msrumon/service-2
-      context: service-2
-    - image: ghcr.io/msrumon/service-3
-      context: service-3
+    - image: ghcr.io/msrumon/service1
+      context: service1
+    - image: ghcr.io/msrumon/service2
+      context: service2
+    - image: ghcr.io/msrumon/service3
+      context: service3
 deploy:
   kubectl:
     manifests:
-      - k8s/development/secrets.yaml
       - k8s/development/volumes.yaml
       - k8s/common/*
       - k8s/development/networks.yaml

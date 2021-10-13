@@ -1,14 +1,14 @@
-name: CD of service-1
+name: CD of service2
 
 on:
   push:
     branches:
       - master
     paths:
-      - service-1/**
+      - service2/**
   workflow_run:
     workflows:
-      - CI of service-1
+      - CI of service2
     branches:
       - master
     types:
@@ -31,11 +31,11 @@ jobs:
         id: metadata
         uses: docker/metadata-action@v3
         with:
-          images: ghcr.io/${{ github.repository_owner }}/service-1
+          images: ghcr.io/${{ github.repository_owner }}/service2
       - name: Build and push the image to the container registry
         uses: docker/build-push-action@v2
         with:
-          context: service-1
+          context: service2
           push: true
           tags: ${{ steps.metadata.outputs.tags }}
           labels: ${{ steps.metadata.outputs.labels }}
@@ -51,4 +51,4 @@ jobs:
           kubeconfig: ${{ secrets.PROVIDER_KUBECONFIG_CONTENTS }}
           context: ${{ secrets.PROVIDER_KUBECONFIG_CONTEXT }}
       - name: Rollout to latest image pulled from the container registry
-        run: kubectl rollout restart deployment deployment-service-1-app
+        run: kubectl rollout restart deployment deployment-service2-app

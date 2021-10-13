@@ -1,11 +1,11 @@
-name: CI of service-2
+name: CI of service2
 
 on:
   pull_request:
     branches:
       - master
     paths:
-      - service-2/**
+      - service2/**
 
 jobs:
   test:
@@ -19,4 +19,4 @@ jobs:
         with:
           node-version: current
       - name: Run test suite
-        run: cd service-2 && npm install && npm test
+        run: cd service2 && npm install && npm test

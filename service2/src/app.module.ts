@@ -6,7 +6,7 @@ import { Service2, Service2Schema } from './schemas/service2.schema';
 
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb://service-service-2-db:27017/service2'),
+    MongooseModule.forRoot('mongodb://service-service2-db:27017/service2'),
     MongooseModule.forFeature([
       { name: Service2.name, schema: Service2Schema },
     ]),

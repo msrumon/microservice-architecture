@@ -8,7 +8,7 @@ volumeBindingMode: WaitForFirstConsumer
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: nats-data-pv
+  name: rabbitmq-pv
 spec:
   capacity:
     storage: 50Mi
@@ -17,15 +17,15 @@ spec:
     - ReadWriteOnce
   storageClassName: local-hostpath-storage
   hostPath:
-    path: /mnt/wsl/nats-data
+    path: /mnt/wsl/rabbitmq-data
     type: DirectoryOrCreate
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: nats-data-pvc
+  name: rabbitmq-pvc
 spec:
-  volumeName: nats-data-pv
+  volumeName: rabbitmq-pv
   resources:
     requests:
       storage: 50Mi
@@ -37,36 +37,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: nats-scripts-pv
-spec:
-  capacity:
-    storage: 5Mi
-  volumeMode: Filesystem
-  accessModes:
-    - ReadWriteOnce
-  storageClassName: local-hostpath-storage
-  hostPath:
-    path: /mnt/wsl/nats-scripts
-    type: DirectoryOrCreate
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: nats-scripts-pvc
-spec:
-  volumeName: nats-scripts-pv
-  resources:
-    requests:
-      storage: 5Mi
-  volumeMode: Filesystem
-  accessModes:
-    - ReadWriteOnce
-  storageClassName: local-hostpath-storage
----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: service-1-pv
+  name: service1-pv
 spec:
   capacity:
     storage: 50Mi
@@ -75,15 +46,15 @@ spec:
     - ReadWriteOnce
   storageClassName: local-hostpath-storage
   hostPath:
-    path: /mnt/wsl/service-1
+    path: /mnt/wsl/service1
     type: DirectoryOrCreate
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: service-1-pvc
+  name: service1-pvc
 spec:
-  volumeName: service-1-pv
+  volumeName: service1-pv
   resources:
     requests:
       storage: 50Mi
@@ -95,7 +66,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: service-2-pv
+  name: service2-pv
 spec:
   capacity:
     storage: 50Mi
@@ -104,15 +75,15 @@ spec:
     - ReadWriteOnce
   storageClassName: local-hostpath-storage
   hostPath:
-    path: /mnt/wsl/service-2
+    path: /mnt/wsl/service2
     type: DirectoryOrCreate
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: service-2-pvc
+  name: service2-pvc
 spec:
-  volumeName: service-2-pv
+  volumeName: service2-pv
   resources:
     requests:
       storage: 50Mi
@@ -124,7 +95,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: service-3-pv
+  name: service3-pv
 spec:
   capacity:
     storage: 50Mi
@@ -133,15 +104,15 @@ spec:
     - ReadWriteOnce
   storageClassName: local-hostpath-storage
   hostPath:
-    path: /mnt/wsl/service-3
+    path: /mnt/wsl/service3
     type: DirectoryOrCreate
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: service-3-pvc
+  name: service3-pvc
 spec:
-  volumeName: service-3-pv
+  volumeName: service3-pv
   resources:
     requests:
       storage: 50Mi

@@ -7,16 +7,19 @@ async function bootstrap() {
 
   app.connectMicroservice<MicroserviceOptions>(
     {
-      transport: Transport.NATS,
+      transport: Transport.RMQ,
       options: {
-        servers: 'nats://nats-service:4222',
-        queue: 'service-2',
+        urls: ['amqp://service-rabbitmq:5672'],
+        queue: 'service3',
+        socketOptions: {
+          heartbeat: 60,
+        },
       },
     },
     { inheritAppConfig: true },
   );
 
   await app.startAllMicroservices();
-  await app.listen(3002);
+  await app.listen(3003);
 }
 bootstrap();

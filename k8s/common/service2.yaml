@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: service-service-3-db
+  name: service-service2-db
 spec:
   selector:
-    app: service-3-db
+    app: service2-db
   ports:
     - protocol: TCP
       port: 27017
@@ -13,21 +13,21 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: deployment-service-3-db
+  name: deployment-service2-db
 spec:
   selector:
     matchLabels:
-      app: service-3-db
+      app: service2-db
   template:
     metadata:
       labels:
-        app: service-3-db
+        app: service2-db
     spec:
       containers:
-        - name: service-3-db
+        - name: service2-db
           image: mongo:latest
           volumeMounts:
-            - name: service-3-data-volume
+            - name: service2-data-volume
               mountPath: /data/db
           resources:
             requests:
@@ -37,38 +37,38 @@ spec:
               cpu: 1000m
               memory: 512Mi
       volumes:
-        - name: service-3-data-volume
+        - name: service2-data-volume
           persistentVolumeClaim:
-            claimName: service-3-pvc
+            claimName: service2-pvc
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: service-service-3-app
+  name: service-service2-app
 spec:
   selector:
-    app: service-3-app
+    app: service2-app
   ports:
     - protocol: TCP
-      port: 3003
-      targetPort: 3003
+      port: 3002
+      targetPort: 3002
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: deployment-service-3-app
+  name: deployment-service2-app
 spec:
   selector:
     matchLabels:
-      app: service-3-app
+      app: service2-app
   template:
     metadata:
       labels:
-        app: service-3-app
+        app: service2-app
     spec:
       containers:
-        - name: service-3-app
-          image: ghcr.io/msrumon/service-3:master
+        - name: service2-app
+          image: ghcr.io/msrumon/service2:master
           resources:
             requests:
               cpu: 500m
