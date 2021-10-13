@@ -8,7 +8,7 @@ volumeBindingMode: WaitForFirstConsumer
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: nats-pv
+  name: nats-data-pv
 spec:
   capacity:
     storage: 50Mi
@@ -17,15 +17,15 @@ spec:
     - ReadWriteOnce
   storageClassName: local-hostpath-storage
   hostPath:
-    path: /mnt/wsl/nats-pv
+    path: /mnt/wsl/nats-data
     type: DirectoryOrCreate
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: nats-pvc
+  name: nats-data-pvc
 spec:
-  volumeName: nats-pv
+  volumeName: nats-data-pv
   resources:
     requests:
       storage: 50Mi
@@ -37,16 +37,45 @@ spec:
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: service-1-pv
+  name: nats-scripts-pv
 spec:
   capacity:
-    storage: 100Mi
+    storage: 5Mi
   volumeMode: Filesystem
   accessModes:
     - ReadWriteOnce
   storageClassName: local-hostpath-storage
   hostPath:
-    path: /mnt/wsl/service-1-pv
+    path: /mnt/wsl/nats-scripts
+    type: DirectoryOrCreate
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: nats-scripts-pvc
+spec:
+  volumeName: nats-scripts-pv
+  resources:
+    requests:
+      storage: 5Mi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: local-hostpath-storage
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: service-1-pv
+spec:
+  capacity:
+    storage: 50Mi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: local-hostpath-storage
+  hostPath:
+    path: /mnt/wsl/service-1
     type: DirectoryOrCreate
 ---
 apiVersion: v1
@@ -57,7 +86,7 @@ spec:
   volumeName: service-1-pv
   resources:
     requests:
-      storage: 100Mi
+      storage: 50Mi
   volumeMode: Filesystem
   accessModes:
     - ReadWriteOnce
@@ -69,13 +98,13 @@ metadata:
   name: service-2-pv
 spec:
   capacity:
-    storage: 100Mi
+    storage: 50Mi
   volumeMode: Filesystem
   accessModes:
     - ReadWriteOnce
   storageClassName: local-hostpath-storage
   hostPath:
-    path: /mnt/wsl/service-2-pv
+    path: /mnt/wsl/service-2
     type: DirectoryOrCreate
 ---
 apiVersion: v1
@@ -86,7 +115,7 @@ spec:
   volumeName: service-2-pv
   resources:
     requests:
-      storage: 100Mi
+      storage: 50Mi
   volumeMode: Filesystem
   accessModes:
     - ReadWriteOnce
@@ -98,13 +127,13 @@ metadata:
   name: service-3-pv
 spec:
   capacity:
-    storage: 100Mi
+    storage: 50Mi
   volumeMode: Filesystem
   accessModes:
     - ReadWriteOnce
   storageClassName: local-hostpath-storage
   hostPath:
-    path: /mnt/wsl/service-3-pv
+    path: /mnt/wsl/service-3
     type: DirectoryOrCreate
 ---
 apiVersion: v1
@@ -115,7 +144,7 @@ spec:
   volumeName: service-3-pv
   resources:
     requests:
-      storage: 100Mi
+      storage: 50Mi
   volumeMode: Filesystem
   accessModes:
     - ReadWriteOnce

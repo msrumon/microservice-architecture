@@ -1,7 +1,7 @@
 # apiVersion: v1
 # kind: PersistentVolume
 # metadata:
-#   name: nats-pv
+#   name: nats-data-pv
 # spec:
 #   capacity:
 #     storage: 50Gi
@@ -19,12 +19,44 @@
 # apiVersion: v1
 # kind: PersistentVolumeClaim
 # metadata:
-#   name: nats-pvc
+#   name: nats-data-pvc
 # spec:
-#   volumeName: nats-pv
+#   volumeName: nats-data-pv
 #   resources:
 #     requests:
 #       storage: 50Gi
+#   volumeMode: Filesystem
+#   accessModes:
+#     - ReadWriteMany
+#   storageClassName: do-block-storage
+# ---
+# apiVersion: v1
+# kind: PersistentVolume
+# metadata:
+#   name: nats-scripts-pv
+# spec:
+#   capacity:
+#     storage: 5Mi
+#   volumeMode: Filesystem
+#   accessModes:
+#     - ReadWriteMany
+#   storageClassName: do-block-storage
+#   csi:
+#     driver: dobs.csi.digitalocean.com
+#     fsType: ext4
+#     volumeHandle: ''
+#     volumeAttributes:
+#       com.digitalocean.csi/noformat: 'true'
+# ---
+# apiVersion: v1
+# kind: PersistentVolumeClaim
+# metadata:
+#   name: nats-scripts-pvc
+# spec:
+#   volumeName: nats-scripts-pv
+#   resources:
+#     requests:
+#       storage: 5Mi
 #   volumeMode: Filesystem
 #   accessModes:
 #     - ReadWriteMany

@@ -30,6 +30,8 @@ spec:
             - secretRef:
                 name: nats-db-secrets
           volumeMounts:
+            - name: nats-scripts-volume
+              mountPath: /docker-entrypoint-initdb.d
             - name: nats-data-volume
               mountPath: /var/lib/postgresql/data
           resources:
@@ -40,9 +42,12 @@ spec:
               cpu: 1000m
               memory: 512Mi
       volumes:
+        - name: nats-scripts-volume
+          persistentVolumeClaim:
+            claimName: nats-scripts-pvc
         - name: nats-data-volume
           persistentVolumeClaim:
-            claimName: nats-pvc
+            claimName: nats-data-pvc
 ---
 apiVersion: v1
 kind: Service
@@ -104,6 +109,10 @@ spec:
             # - '10'
             - '--cluster_id'
             - 'msrumon'
+          volumeMounts:
+            - name: nats-scripts-volume
+              mountPath: ./scripts/postgres.db.sql
+              readOnly: true
           resources:
             requests:
               cpu: 250m
@@ -111,3 +120,7 @@ spec:
             limits:
               cpu: 750m
               memory: 256Mi
+      volumes:
+        - name: nats-scripts-volume
+          persistentVolumeClaim:
+            claimName: nats-scripts-pvc
