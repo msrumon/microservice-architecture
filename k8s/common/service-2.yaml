@@ -31,11 +31,11 @@ spec:
               mountPath: /data/db
           resources:
             requests:
-              cpu: 250m
-              memory: 128Mi
+              cpu: 500m
+              memory: 256Mi
             limits:
               cpu: 1000m
-              memory: 256Mi
+              memory: 512Mi
       volumes:
         - name: service-2-data-volume
           persistentVolumeClaim:
@@ -74,5 +74,5 @@ spec:
               cpu: 500m
               memory: 256Mi
             limits:
-              cpu: 1500m
+              cpu: 1000m
               memory: 512Mi

@@ -32,20 +32,15 @@ spec:
           volumeMounts:
             - name: nats-data-volume
               mountPath: /var/lib/postgresql/data
-            - name: nats-initdb-volume
-              mountPath: /docker-entrypoint-initdb.d
           resources:
             requests:
-              cpu: 250m
-              memory: 128Mi
+              cpu: 500m
+              memory: 256Mi
             limits:
               cpu: 1000m
-              memory: 256Mi
+              memory: 512Mi
       volumes:
         - name: nats-data-volume
-          persistentVolumeClaim:
-            claimName: nats-pvc
-        - name: nats-initdb-volume
           persistentVolumeClaim:
             claimName: nats-pvc
 ---
@@ -109,18 +104,10 @@ spec:
             # - '10'
             - '--cluster_id'
             - 'msrumon'
-          volumeMounts:
-            - name: nats-scripts-volume
-              mountPath: ./scripts
-              readOnly: true
           resources:
             requests:
-              cpu: 100m
+              cpu: 250m
               memory: 128Mi
             limits:
               cpu: 750m
               memory: 256Mi
-      volumes:
-        - name: nats-scripts-volume
-          persistentVolumeClaim:
-            claimName: nats-pvc
