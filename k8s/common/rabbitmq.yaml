@@ -6,8 +6,10 @@ spec:
   selector:
     app: service-rabbitmq
   ports:
-    - port: 5672
-      targetPort: 5672
+    - name: rabbitmq-amqp
+      port: 5672
+    - name: rabbitmq-http
+      port: 15672
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -23,11 +25,11 @@ spec:
         app: deployment-rabbitmq
     spec:
       containers:
-        - name: deployment-rabbitmq
+        - name: rabbitmq
           image: rabbitmq:latest
           volumeMounts:
             - name: rabbitmq-data-volume
-              mountPath: /var/lib/rabbitmq
+              mountPath: /var/lib/rabbitmq/mnesia
           resources:
             requests:
               cpu: 250m

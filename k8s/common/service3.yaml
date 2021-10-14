@@ -6,9 +6,8 @@ spec:
   selector:
     app: service3-db
   ports:
-    - protocol: TCP
+    - name: service3-db
       port: 27017
-      targetPort: 27017
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -49,9 +48,8 @@ spec:
   selector:
     app: service3-app
   ports:
-    - protocol: TCP
+    - name: service3-app
       port: 3003
-      targetPort: 3003
 ---
 apiVersion: apps/v1
 kind: Deployment

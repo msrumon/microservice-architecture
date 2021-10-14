@@ -1,32 +1,39 @@
-# apiVersion: networking.k8s.io/v1
-# kind: Ingress
-# metadata:
-#   name: service-ingress
-#   annotations:
-#     kubernetes.io/ingress.class: nginx
-# spec:
-#   rules:
-#     - host: '*.msrumon.com'
-#       http:
-#         paths:
-#           - path: /api/service1
-#             pathType: Prefix
-#             backend:
-#               service:
-#                 name: service-service1-app
-#                 port:
-#                   number: 3001
-#           - path: /api/service2
-#             pathType: Prefix
-#             backend:
-#               service:
-#                 name: service-service2-app
-#                 port:
-#                   number: 3002
-#           - path: /api/service3
-#             pathType: Prefix
-#             backend:
-#               service:
-#                 name: service-service3-app
-#                 port:
-#                   number: 3003
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: service-ingress
+  annotations:
+    kubernetes.io/ingress.class: nginx
+spec:
+  rules:
+    - host: microservice.msrumon.com
+      http:
+        paths:
+          - path: /mnt/rabbitmq
+            pathType: Prefix
+            backend:
+              service:
+                name: service-rabbitmq
+                port:
+                  name: rabbitmq-http
+          - path: /api/service1
+            pathType: Prefix
+            backend:
+              service:
+                name: service-service1-app
+                port:
+                  name: service1-app
+          - path: /api/service2
+            pathType: Prefix
+            backend:
+              service:
+                name: service-service2-app
+                port:
+                  name: service2-app
+          - path: /api/service3
+            pathType: Prefix
+            backend:
+              service:
+                name: service-service3-app
+                port:
+                  name: service3-app
