@@ -8,8 +8,6 @@ spec:
   ports:
     - name: rabbitmq-amqp
       port: 5672
-    - name: rabbitmq-http
-      port: 15672
 ---
 apiVersion: apps/v1
 kind: StatefulSet
@@ -33,11 +31,17 @@ spec:
               mountPath: /var/lib/rabbitmq/mnesia
           resources:
             requests:
-              cpu: 250m
-              memory: 128Mi
-            limits:
-              cpu: 750m
+              cpu: 500m
               memory: 512Mi
+            limits:
+              cpu: 1000m
+              memory: 1Gi
+          # livenessProbe:
+          #   exec:
+          #     command:
+          #       - 'rabbitmq-diagnostics'
+          #       - 'ping'
+          #       - '--quiet'
       volumes:
         - name: rabbitmq-data-volume
           persistentVolumeClaim:

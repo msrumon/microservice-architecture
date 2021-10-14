@@ -15,6 +15,7 @@ async function bootstrap() {
     },
     { inheritAppConfig: true },
   );
+  app.setGlobalPrefix('api/service2');
 
   await app.startAllMicroservices();
   await app.listen(3002);

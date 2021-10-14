@@ -9,13 +9,6 @@ spec:
     - host: localhost
       http:
         paths:
-          - path: /mnt/rabbitmq
-            pathType: Prefix
-            backend:
-              service:
-                name: service-rabbitmq
-                port:
-                  name: rabbitmq-http
           - path: /api/service1
             pathType: Prefix
             backend:

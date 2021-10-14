@@ -12,7 +12,7 @@ import {
 import { AppService } from './app.service';
 import { Service2 } from './schemas/service2.schema';
 
-@Controller('api/service2')
+@Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
