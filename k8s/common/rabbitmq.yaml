@@ -12,17 +12,18 @@ spec:
       port: 15672
 ---
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
-  name: deployment-rabbitmq
+  name: statefulset-rabbitmq
 spec:
   selector:
     matchLabels:
-      app: deployment-rabbitmq
+      app: statefulset-rabbitmq
+  serviceName: service-rabbitmq
   template:
     metadata:
       labels:
-        app: deployment-rabbitmq
+        app: statefulset-rabbitmq
     spec:
       containers:
         - name: rabbitmq
@@ -36,7 +37,7 @@ spec:
               memory: 128Mi
             limits:
               cpu: 750m
-              memory: 256Mi
+              memory: 512Mi
       volumes:
         - name: rabbitmq-data-volume
           persistentVolumeClaim:
