@@ -11,9 +11,6 @@ async function bootstrap() {
       options: {
         urls: ['amqp://service-rabbitmq:5672'],
         queue: 'service1',
-        socketOptions: {
-          heartbeat: 60,
-        },
       },
     },
     { inheritAppConfig: true },
