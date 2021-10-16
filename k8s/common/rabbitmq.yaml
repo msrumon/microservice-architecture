@@ -4,7 +4,7 @@ metadata:
   name: service-rabbitmq
 spec:
   selector:
-    app: service-rabbitmq
+    app: rabbitmq
   ports:
     - name: rabbitmq-amqp
       port: 5672
@@ -16,12 +16,12 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: statefulset-rabbitmq
+      app: rabbitmq
   serviceName: service-rabbitmq
   template:
     metadata:
       labels:
-        app: statefulset-rabbitmq
+        app: rabbitmq
     spec:
       containers:
         - name: rabbitmq
