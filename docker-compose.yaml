@@ -1,0 +1,52 @@
+services:
+  rabbitmq:
+    image: rabbitmq:latest
+    ports:
+      - 5672:5672
+    volumes:
+      - rabbitmq:/var/lib/rabbitmq/mnesia
+  mongodb:
+    image: mongo:latest
+    ports:
+      - 27017:27017
+    volumes:
+      - mongodb:/data/db
+  service1:
+    build:
+      context: ./service1
+    ports:
+      - 3001:3001
+    environment:
+      RABBITMQ_URI: amqp://rabbitmq:5672
+      MONGODB_URI: mongodb://mongodb:27017/service1
+    depends_on:
+      - rabbitmq
+      - mongodb
+  service2:
+    build:
+      context: ./service2
+    ports:
+      - 3002:3002
+    environment:
+      RABBITMQ_URI: amqp://rabbitmq:5672
+      MONGODB_URI: mongodb://mongodb:27017/service2
+    depends_on:
+      - rabbitmq
+      - mongodb
+  service3:
+    build:
+      context: ./service3
+    ports:
+      - 3003:3003
+    environment:
+      RABBITMQ_URI: amqp://rabbitmq:5672
+      MONGODB_URI: mongodb://mongodb:27017/service3
+    depends_on:
+      - rabbitmq
+      - mongodb
+volumes:
+  rabbitmq:
+  mongodb:
+  service1:
+  service2:
+  service3:
