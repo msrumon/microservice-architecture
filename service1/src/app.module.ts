@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
+import { TerminusModule } from '@nestjs/terminus';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { HealthinessModule } from './healthiness/healthiness.module';
 import { Service1, Service1Schema } from './schemas/service1.schema';
 
 @Module({
@@ -11,7 +11,7 @@ import { Service1, Service1Schema } from './schemas/service1.schema';
     MongooseModule.forFeature([
       { name: Service1.name, schema: Service1Schema },
     ]),
-    HealthinessModule,
+    TerminusModule,
   ],
   controllers: [AppController],
   providers: [AppService],

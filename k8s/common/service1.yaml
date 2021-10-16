@@ -85,7 +85,7 @@ spec:
             limits:
               cpu: 1000m
               memory: 512Mi
-          # livenessProbe:
-          #   httpGet:
-          #     path: /api/service1/healthiness
-          #     port: 3001
+          livenessProbe:
+            httpGet:
+              path: /api/service1/healthiness
+              port: 3001

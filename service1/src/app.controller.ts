@@ -9,12 +9,38 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
+import { Transport } from '@nestjs/microservices';
+import {
+  HealthCheckService,
+  MicroserviceHealthIndicator,
+  MongooseHealthIndicator,
+  HealthCheck,
+  HealthCheckResult,
+} from '@nestjs/terminus';
 import { AppService } from './app.service';
 import { Service1 } from './schemas/service1.schema';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(
+    private readonly healthCheckService: HealthCheckService,
+    private readonly microserviceHealthIndicator: MicroserviceHealthIndicator,
+    private readonly mongooseHealthIndicator: MongooseHealthIndicator,
+    private readonly appService: AppService,
+  ) {}
+
+  @Get('healthiness')
+  @HealthCheck()
+  async checkHealth(): Promise<HealthCheckResult> {
+    return await this.healthCheckService.check([
+      async () =>
+        this.microserviceHealthIndicator.pingCheck('broker', {
+          transport: Transport.RMQ,
+          options: { urls: [process.env.RABBITMQ_URI], queue: 'service1' },
+        }),
+      async () => this.mongooseHealthIndicator.pingCheck('database'),
+    ]);
+  }
 
   @Get()
   async getData(): Promise<Service1[]> {
