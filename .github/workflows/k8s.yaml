@@ -27,5 +27,6 @@ jobs:
         uses: azure/k8s-deploy@v1
         with:
           manifests: |
-            k8s/production/*
+            k8s/production/volumes.yaml
             k8s/common/*
+            k8s/production/networks.yaml

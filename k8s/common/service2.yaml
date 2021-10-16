@@ -73,6 +73,11 @@ spec:
       containers:
         - name: service2-app
           image: ghcr.io/msrumon/service2:master
+          env:
+            - name: RABBITMQ_URI
+              value: amqp://service-rabbitmq:5672
+            - name: MONGODB_URI
+              value: mongodb://service-service2-db:27017/service2
           resources:
             requests:
               cpu: 500m

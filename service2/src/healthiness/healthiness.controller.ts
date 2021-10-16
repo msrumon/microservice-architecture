@@ -19,19 +19,13 @@ export class HealthinessController {
   @Get()
   @HealthCheck()
   async checkHealth(): Promise<HealthCheckResult> {
-    return this.healthCheckService.check([
+    return await this.healthCheckService.check([
       async () =>
-        this.microserviceHealthIndicator.pingCheck('service2-broker', {
+        this.microserviceHealthIndicator.pingCheck('broker', {
           transport: Transport.RMQ,
-          options: {
-            urls: ['amqp://service-rabbitmq:5672'],
-            queue: 'service2',
-          },
+          options: { urls: [process.env.RABBITMQ_URI], queue: 'service2' },
         }),
-      async () =>
-        this.mongooseHealthIndicator.pingCheck('service2-database', {
-          connection: 'mongodb://service-service2-db:27017/service2',
-        }),
+      async () => this.mongooseHealthIndicator.pingCheck('database'),
     ]);
   }
 }
