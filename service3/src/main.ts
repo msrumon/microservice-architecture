@@ -1,5 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
+
 import { AppModule } from './app.module';
 
 async function bootstrap() {
@@ -12,7 +13,7 @@ async function bootstrap() {
     },
     { inheritAppConfig: true },
   );
-  app.setGlobalPrefix('api/service3');
+  app.setGlobalPrefix('service3');
 
   await app.startAllMicroservices();
   await app.listen(3003);

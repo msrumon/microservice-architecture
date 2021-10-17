@@ -87,5 +87,5 @@ spec:
               memory: 512Mi
           livenessProbe:
             httpGet:
-              path: /api/service2/healthiness
+              path: /service2/healthiness
               port: 3002

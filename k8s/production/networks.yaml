@@ -9,21 +9,21 @@ spec:
     - host: microservice.msrumon.com
       http:
         paths:
-          - path: /api/service1
+          - path: /service1
             pathType: Prefix
             backend:
               service:
                 name: service-service1-app
                 port:
                   name: service1-app
-          - path: /api/service2
+          - path: /service2
             pathType: Prefix
             backend:
               service:
                 name: service-service2-app
                 port:
                   name: service2-app
-          - path: /api/service3
+          - path: /service3
             pathType: Prefix
             backend:
               service:
