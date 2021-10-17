@@ -1,4 +1,5 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
+import { ClientProxy } from '@nestjs/microservices';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
@@ -9,6 +10,7 @@ export class AppService {
   constructor(
     @InjectModel(Service1.name)
     private readonly service1Model: Model<Service1Document>,
+    @Inject('SERVICE1') private readonly client: ClientProxy,
   ) {}
 
   async fetchData(): Promise<Service1[]> {
@@ -17,7 +19,10 @@ export class AppService {
 
   async storeData(data: object): Promise<Service1> {
     const service1 = new this.service1Model(data);
-    return await service1.save();
+    await service1.save();
+    this.client.emit('service2', { data });
+    this.client.emit('service3', { data });
+    return service1;
   }
 
   async fetchDatum(id: string): Promise<Service1> {
@@ -25,12 +30,18 @@ export class AppService {
   }
 
   async updateDatum(id: string, data: object): Promise<Service1> {
-    return await this.service1Model
+    const service1 = await this.service1Model
       .findByIdAndUpdate(id, data, { new: true })
       .exec();
+    this.client.emit('service2', { id, data });
+    this.client.emit('service3', { id, data });
+    return service1;
   }
 
   async deleteDatum(id: string): Promise<Service1> {
-    return await this.service1Model.findByIdAndRemove(id).exec();
+    const service1 = await this.service1Model.findByIdAndRemove(id).exec();
+    this.client.emit('service2', { id });
+    this.client.emit('service3', { id });
+    return service1;
   }
 }

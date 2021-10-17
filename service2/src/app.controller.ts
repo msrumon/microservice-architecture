@@ -9,6 +9,7 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
+import { EventPattern } from '@nestjs/microservices';
 
 import { AppService } from './app.service';
 
@@ -40,5 +41,17 @@ export class AppController {
   @Delete(':id')
   async deleteDatum(@Param('id') id: string) {
     return await this.appService.deleteDatum(id);
+  }
+
+  @EventPattern('service1')
+  async handleService1(data: Record<string, any>) {
+    // do something
+    console.log('service1', data);
+  }
+
+  @EventPattern('service3')
+  async handleService3(data: Record<string, any>) {
+    // do something
+    console.log('service3', data);
   }
 }
