@@ -25,6 +25,9 @@ spec:
       containers:
         - name: service3-db
           image: mongo:latest
+          ports:
+            - name: service3-db
+              containerPort: 27017
           volumeMounts:
             - name: service3-data-volume
               mountPath: /data/db
@@ -73,6 +76,9 @@ spec:
       containers:
         - name: service3-app
           image: ghcr.io/msrumon/service3:master
+          ports:
+            - name: service3-app
+              containerPort: 3003
           env:
             - name: RABBITMQ_URI
               value: amqp://service-rabbitmq:5672
@@ -88,4 +94,4 @@ spec:
           livenessProbe:
             httpGet:
               path: /service3/healthiness
-              port: 3003
+              port: service3-app

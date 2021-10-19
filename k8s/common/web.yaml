@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-web
+spec:
+  selector:
+    app: web
+  ports:
+    - name: web-http
+      port: 80
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-web
+spec:
+  selector:
+    matchLabels:
+      app: web
+  template:
+    metadata:
+      labels:
+        app: web
+    spec:
+      containers:
+        - name: web
+          image: ghcr.io/msrumon/web:master
+          ports:
+            - name: web
+              containerPort: 80
+          resources:
+            requests:
+              cpu: 250m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              memory: 256Mi

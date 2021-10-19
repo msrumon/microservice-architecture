@@ -10,6 +10,8 @@ build:
       context: service2
     - image: ghcr.io/msrumon/service3
       context: service3
+    - image: ghcr.io/msrumon/web
+      context: web
 deploy:
   kubectl:
     manifests:
