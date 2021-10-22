@@ -1,0 +1,54 @@
+name: CD of web
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - web/**
+  workflow_run:
+    workflows:
+      - CI of web
+    branches:
+      - master
+    types:
+      - completed
+
+jobs:
+  build-push:
+    name: Build the image and push to the container registry
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout to branch
+        uses: actions/checkout@v2
+      - name: Login to the container registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ github.token }}
+      - name: Extract metadata of the image
+        id: metadata
+        uses: docker/metadata-action@v3
+        with:
+          images: ghcr.io/${{ github.repository_owner }}/web
+      - name: Build and push the image to the container registry
+        uses: docker/build-push-action@v2
+        with:
+          context: web
+          push: true
+          tags: ${{ steps.metadata.outputs.tags }}
+          labels: ${{ steps.metadata.outputs.labels }}
+  deploy:
+    needs: build-push
+    name: Update deployment of the Kubernetes cluster
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set K8S context
+        uses: azure/k8s-set-context@v1
+        with:
+          method: kubeconfig
+          kubeconfig: ${{ secrets.PROVIDER_KUBECONFIG_CONTENTS }}
+          context: ${{ secrets.PROVIDER_KUBECONFIG_CONTEXT }}
+      - name: Rollout to latest image pulled from the container registry
+        run: kubectl rollout restart deployment deployment-web

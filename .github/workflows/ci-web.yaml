@@ -1,0 +1,22 @@
+name: CI of web
+
+on:
+  pull_request:
+    branches:
+      - master
+    paths:
+      - web/**
+
+jobs:
+  test:
+    name: Build the app and run the test suite
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout to branch
+        uses: actions/checkout@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: current
+      - name: Run test suite
+        run: cd web && npm install && npm test
