@@ -18,6 +18,6 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: current
+          node-version: lts/*
       - name: Run test suite
         run: cd web && npm install && npm test
