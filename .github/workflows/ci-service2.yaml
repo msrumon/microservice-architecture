@@ -6,6 +6,7 @@ on:
       - master
     paths:
       - service2/**
+  workflow_dispatch:
 
 jobs:
   test:
